@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/github-to-sqlite-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/github-to-sqlite-{{ version }}.tar.gz
   sha256: 8dea4b34769ffe425fbac7f776790c1b8b5d976468c64bcd657068b9019bc56a
 
 build:
@@ -14,14 +14,14 @@ build:
     - github-to-sqlite = github_to_sqlite.cli:cli
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - pyyaml
     - requests
     - sqlite-utils >=2.7.2
@@ -34,6 +34,7 @@ test:
     - github-to-sqlite --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/dogsheep/github-to-sqlite
